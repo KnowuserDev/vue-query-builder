@@ -9,7 +9,7 @@
 <script>
 /* eslint-disable vue/require-default-prop */
 import QueryBuilderGroup from "./layouts/Tailwind/TailwindGroup.vue";
-import deepClone from "./utilities.js";
+import { cloneDeep } from "lodash";
 
 var defaultLabels = {
   matchType: "Match Type",
@@ -145,7 +145,7 @@ export default {
       "query",
       (newQuery) => {
         if (JSON.stringify(newQuery) !== JSON.stringify(this.value)) {
-          this.$emit("input", deepClone(newQuery));
+          this.$emit("input", cloneDeep(newQuery));
         }
       },
       {
@@ -157,7 +157,7 @@ export default {
       "value",
       (newValue) => {
         if (JSON.stringify(newValue) !== JSON.stringify(this.query)) {
-          this.query = deepClone(newValue);
+          this.query = cloneDeep(newValue);
         }
       },
       {
