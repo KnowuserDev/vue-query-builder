@@ -1,26 +1,27 @@
 <template>
   <!-- eslint-disable vue/no-v-html -->
-  <div class="vqb-rule card">
-    <div class="form-inline">
+  <div
+    class="vqb-rule relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-grey-light"
+  >
+    <div class="flex items-center">
       <label class="mr-5">{{ rule.label }}</label>
 
       <!-- List of operands (optional) -->
       <select
         v-if="typeof rule.operands !== 'undefined'"
         v-model="query.operand"
-        class="form-control mr-2"
+        class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-grey-darker border border-grey rounded mr-2"
       >
-        <option
-          v-for="operand in rule.operands"
-          :key="operand"
-        >
+        <option v-for="operand in rule.operands" :key="operand">
           {{ operand }}
         </option>
       </select>
 
       <!-- List of operators (e.g. =, !=, >, <) -->
       <select
-        v-if="typeof rule.operators !== 'undefined' && rule.operators.length > 1"
+        v-if="
+          typeof rule.operators !== 'undefined' && rule.operators.length > 1
+        "
         v-model="query.operator"
         class="form-control mr-2"
       >
@@ -40,7 +41,7 @@
         class="form-control"
         type="text"
         :placeholder="labels.textInputPlaceholder"
-      >
+      />
 
       <!-- Basic number input -->
       <input
@@ -48,7 +49,7 @@
         v-model="query.value"
         class="form-control"
         type="number"
-      >
+      />
 
       <!-- Datepicker -->
       <input
@@ -56,13 +57,10 @@
         v-model="query.value"
         class="form-control"
         type="date"
-      >
+      />
 
       <!-- Custom component input -->
-      <div
-        v-if="isCustomComponent"
-        class="vqb-custom-component-wrap"
-      >
+      <div v-if="isCustomComponent" class="vqb-custom-component-wrap">
         <component
           :is="rule.component"
           :value="query.value"
@@ -71,24 +69,26 @@
       </div>
 
       <!-- Checkbox input -->
-      <template
-        v-if="rule.inputType === 'checkbox'"
-      >
+      <template v-if="rule.inputType === 'checkbox'">
         <div
           v-for="choice in rule.choices"
           :key="choice.value"
-          class="form-check form-check-inline"
+          class="relative block mb-2 inline-block mr-2"
         >
           <input
-            :id="'depth' + depth + '-' + rule.id + '-' + index + '-' + choice.value"
+            :id="
+              'depth' + depth + '-' + rule.id + '-' + index + '-' + choice.value
+            "
             v-model="query.value"
             type="checkbox"
             :value="choice.value"
-            class="form-check-input"
-          >
+            class="absolute mt-1 -ml-6"
+          />
           <label
-            class="form-check-label"
-            :for="'depth' + depth + '-' + rule.id + '-' + index + '-' + choice.value"
+            class="text-grey-dark pl-6 mb-0"
+            :for="
+              'depth' + depth + '-' + rule.id + '-' + index + '-' + choice.value
+            "
           >
             {{ choice.label }}
           </label>
@@ -96,25 +96,27 @@
       </template>
 
       <!-- Radio input -->
-      <template
-        v-if="rule.inputType === 'radio'"
-      >
+      <template v-if="rule.inputType === 'radio'">
         <div
           v-for="choice in rule.choices"
           :key="choice.value"
           class="form-check form-check-inline"
         >
           <input
-            :id="'depth' + depth + '-' + rule.id + '-' + index + '-' + choice.value"
+            :id="
+              'depth' + depth + '-' + rule.id + '-' + index + '-' + choice.value
+            "
             v-model="query.value"
             :name="'depth' + depth + '-' + rule.id + '-' + index"
             type="radio"
             :value="choice.value"
             class="form-check-input"
-          >
+          />
           <label
             class="form-check-label"
-            :for="'depth' + depth + '-' + rule.id + '-' + index + '-' + choice.value"
+            :for="
+              'depth' + depth + '-' + rule.id + '-' + index + '-' + choice.value
+            "
           >
             {{ choice.label }}
           </label>
@@ -162,19 +164,18 @@
       <!-- Remove rule button -->
       <button
         type="button"
-        class="close ml-auto"
+        class="absolute pin-t pin-b pin-r px-4 py-3 ml-auto right-0"
         @click="remove"
         v-html="labels.removeRule"
-      >
-      </button>
+      ></button>
     </div>
   </div>
 </template>
 
 <script>
-import QueryBuilderRule from '../../components/QueryBuilderRule';
+import QueryBuilderRule from "../../components/QueryBuilderRule";
 
 export default {
-  extends: QueryBuilderRule
-}
+  extends: QueryBuilderRule,
+};
 </script>

@@ -6,32 +6,32 @@ By default, Vue Query Builder ships with an opinionated layout, using Bootstrap 
 
 To provide your own template to the query builder, you need to:
 
-* Create your own components that extend the base components `QueryBuilderGroup` and `QueryBuilderRule`
-* Pass your version of the `QueryBuilderGroup` component as the default slot content to the main query builder component
+- Create your own components that extend the base components `QueryBuilderGroup` and `QueryBuilderRule`
+- Pass your version of the `QueryBuilderGroup` component as the default slot content to the main query builder component
 
 In your template, you **must**:
 
-* Set the `query-builder-group` component as the default slot content
-* Bind the slot props to the `query-builder-group` component
-* Use `query.sync` for the initial group to access and update the query
+- Set the `query-builder-group` component as the default slot content
+- Bind the slot props to the `query-builder-group` component
+- Use `query.sync` for the initial group to access and update the query
 
 Your main Vue instance might look like this:
 
 ```js
-import VueQueryBuilder from 'vue-query-builder';
-import MyCustomQueryBuilderGroup from './my-custom-query-builder-group.vue';
+import VueQueryBuilder from "vue-query-builder";
+import MyCustomQueryBuilderGroup from "./my-custom-query-builder-group.vue";
 
 new Vue({
-    el: '#app',
-    components: { VueQueryBuilder, MyCustomQueryBuilderGroup }
+  el: "#app",
+  components: { VueQueryBuilder, MyCustomQueryBuilderGroup },
 });
 ```
 
 ```html
 <vue-query-builder :rules="rules" v-model="query">
-    <template v-slot:default="slotProps">
-        <query-builder-group v-bind="slotProps" :query.sync="query"/>
-    </template>
+  <template v-slot:default="slotProps">
+    <query-builder-group v-bind="slotProps" :query.sync="query" />
+  </template>
 </vue-query-builder>
 ```
 
@@ -41,26 +41,25 @@ Using Vue's `extend` feature, you can import the logic for the `QueryBuilderGrou
 
 These base components are exported separately from the main query builder component. Using a bundler such as webpack, you should be able to import and then extend the components like so:
 
-
 ```html
 <!-- MyCustomQueryBuilderGroup.vue -->
 <template>
-<!-- template here -->
+  <!-- template here -->
 </template>
 
 <script>
-import QueryBuilderGroup from "vue-query-builder/dist/group/QueryBuilderGroup.umd.js";
-import QueryBuilderRule from "./MyCustomQueryBuilderRule.vue";
+  import QueryBuilderGroup from "vue-query-builder/dist/group/QueryBuilderGroup.umd.js";
+  import QueryBuilderRule from "./MyCustomQueryBuilderRule.vue";
 
-export default {
-  name: "QueryBuilderGroup",
+  export default {
+    name: "QueryBuilderGroup",
 
-  components: {
-    QueryBuilderRule: QueryBuilderRule
-  },
+    components: {
+      QueryBuilderRule: QueryBuilderRule,
+    },
 
-  extends: QueryBuilderGroup
-};
+    extends: QueryBuilderGroup,
+  };
 </script>
 ```
 
@@ -71,11 +70,11 @@ export default {
 </template>
 
 <script>
-import QueryBuilderRule from "vue-query-builder/dist/rule/QueryBuilderRule.umd.js";
+  import QueryBuilderRule from "vue-query-builder/dist/rule/QueryBuilderRule.umd.js";
 
-export default {
-  extends: QueryBuilderRule
-};
+  export default {
+    extends: QueryBuilderRule,
+  };
 </script>
 ```
 
@@ -101,5 +100,5 @@ Here is an example which uses Tailwind CSS instead of Bootstrap to style the que
 
 More documentation on custom templates is coming soon. However, the query builder actually uses the custom template functionality under the hood, so you can see a complete example - including sample HTML for all possible rule types - in the following files in the repo:
 
-- [src/layouts/Bootstrap/BootstrapGroup.vue](https://github.com/dabernathy89/vue-query-builder/blob/master/src/layouts/Bootstrap/BootstrapGroup.vue)
-- [src/layouts/Bootstrap/BootstrapRule.vue](https://github.com/dabernathy89/vue-query-builder/blob/master/src/layouts/Bootstrap/BootstrapRule.vue)
+- [src/layouts/Bootstrap/TailwindGroup.vue](https://github.com/dabernathy89/vue-query-builder/blob/master/src/layouts/Bootstrap/TailwindGroup.vue)
+- [src/layouts/Bootstrap/TailwindRule.vue](https://github.com/dabernathy89/vue-query-builder/blob/master/src/layouts/Bootstrap/TailwindRule.vue)
